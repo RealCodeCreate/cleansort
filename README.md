@@ -67,10 +67,3 @@ curl -sSL https://githubusercontent.com | bash
    ```
 
 ---
-
-## 📜 Лицензия
-
-Распространяется под лицензией MIT. Используйте, модифицируйте и делитесь!
-
----
-Developed with 💙 for Linux community.
