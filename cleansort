@@ -1,0 +1,90 @@
+#!/bin/bash
+
+COLOR='\033[1;36m'
+NC='\033[0m' 
+
+show_logo() {
+    clear
+    echo -e "${COLOR}"
+    echo " ██████╗██╗     ███████╗ █████╗ ███╗   ██╗"
+    echo "██╔════╝██║     ██╔════╝██╔══██╗████╗  ██║"
+    echo "██║     ██║     █████╗  ███████║██╔██╗ ██║"
+    echo "██║     ██║     ██╔══╝  ██╔══██║██║╚██╗██║"
+    echo "╚██████╗███████╗███████╗██║  ██║██║ ╚████║"
+    echo " ╚═════╝╚══════╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═══╝"
+    echo "        [ С О Р Т И Р О В Щ И К ]"
+    echo "------------------------------------------"
+}
+
+run_sorting() {
+    LOCATIONS=(
+        "ENG|$HOME/Downloads|$HOME/Pictures|$HOME/Documents|$HOME/Videos"
+        "RUS|$HOME/Загрузки|$HOME/Изображения|$HOME/Документы|$HOME/Видео"
+    )
+
+    moved_count=0
+
+    for loc in "${LOCATIONS[@]}"; do
+        IFS='|' read -r TAG SRC PIC DOC VID <<< "$loc"
+        echo -n "Проверка папки $TAG... "
+        
+        if [ ! -d "$SRC" ]; then
+            echo "Не найдена"
+            continue
+        fi
+        echo "Ок"
+
+        cd "$SRC" || continue
+
+        while IFS= read -r file; do
+            [ -z "$file" ] && continue
+            file_name=$(basename "$file")
+            ext=$(echo "${file_name##*.}" | tr '[:upper:]' '[:lower:]')
+            
+            TARGET=""
+            case "$ext" in
+                jpg|jpeg|png|gif|svg|webp) TARGET="$PIC" ;;
+                pdf|docx|doc|txt|xlsx|odt) TARGET="$DOC" ;;
+                mp4|mkv|mov|avi)           TARGET="$VID" ;;
+                zip|tar|gz|rar|7z)         TARGET="$SRC/Archives" ;;
+            esac
+
+            if [ -n "$TARGET" ]; then
+                mkdir -p "$TARGET"
+                if mv "$file" "$TARGET/"; then
+                    echo "  » $file_name -> ${TARGET##*/}"
+                    ((moved_count++))
+                fi
+            fi
+        done < <(find . -maxdepth 1 -type f -not -name ".*")
+    done
+
+    echo "------------------------------------------"
+    echo "ГОТОВО! Перемещено файлов: $moved_count"
+    echo -e "\nНажми Enter, чтобы вернуться в меню..."
+    read
+}
+
+while true; do
+    show_logo
+    echo " 1. Запустить сортировку"
+    echo " 2. Выход"
+    echo "------------------------------------------"
+    echo -n " Выбери вариант [1-2]: "
+    read choice
+
+    case $choice in
+        1)
+            run_sorting
+            ;;
+        2)
+            echo " Выход..."
+            echo -e "${NC}"
+            exit 0
+            ;;
+        *)
+            echo " Неверный ввод, попробуй еще раз."
+            sleep 1
+            ;;
+    esac
+done
