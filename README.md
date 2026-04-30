@@ -44,7 +44,7 @@
 Установите CleanSort одной командой прямо в систему:
 
 ```bash
-curl -sSL https://githubusercontent.com | bash
+curl -sSL https://github.com/RealCodeCreate/cleansort/blob/main/install.sh | bash
 ```
 
 *После установки просто введите `cleansort` в любом терминале.*
@@ -55,7 +55,7 @@ curl -sSL https://githubusercontent.com | bash
 
 1. Склонируйте репозиторий:
    ```bash
-   git clone https://github.com
+   git clone https://github.com/RealCodeCreate/cleansort
    ```
 2. Перейдите в папку и дайте права на запуск:
    ```bash
