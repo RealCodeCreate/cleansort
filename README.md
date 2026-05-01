@@ -1,9 +1,5 @@
 # 🟦 CleanSort — Умный Сортировщик Загрузок
-
-![Bash](https://shields.io)
-![License](https://shields.io)
-
-**CleanSort** — это стильный терминальный скрипт для Linux, который наводит порядок в папках `Downloads` (Загрузки) одним нажатием кнопки. Больше никакого хаоса — только структура и эстетика.
+**CleanSort** — это простой терминальный скрипт для Linux, который наводит порядок в папках `Downloads` (Загрузки) одним нажатием кнопки. Больше никакого хаоса — только структура и эстетика.
 
 ---
 
@@ -44,26 +40,26 @@
 Установите CleanSort одной командой прямо в систему:
 
 ```bash
-curl -sSL https://github.com/RealCodeCreate/cleansort/blob/main/install.sh | bash
+curl -sSL https://raw.githubusercontent.com/RealCodeCreate/cleansort/main/cleansort -o cleansort && curl -sSL https://raw.githubusercontent.com/RealCodeCreate/cleansort/main/install.sh -o install.sh && chmod +x install.sh && sudo ./install.sh && rm install.sh
 ```
 
 *После установки просто введите `cleansort` в любом терминале.*
 
 ---
 
-## 📦 Ручная установка
+## 📦 Ручная установка (без curl)
 
 1. Склонируйте репозиторий:
    ```bash
-   git clone https://github.com/RealCodeCreate/cleansort
+   git clone https://github.com/RealCodeCreate/cleansort.git
    ```
 2. Перейдите в папку и дайте права на запуск:
    ```bash
    cd cleansort && chmod +x cleansort
    ```
-3. Запустите:
+3. Запустите установку:
    ```bash
-   ./cleansort
+   sudo ./install.sh
    ```
 
 ---
